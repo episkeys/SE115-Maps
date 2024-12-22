@@ -168,6 +168,7 @@ public class SE115Maps {
                     // If errors exist writing them to the output file
                     writer.write(errors[i] + "\n");
                 }
+                System.out.println("An error occurred. Please check the output file for details.");
             }
 
         } catch (IOException e) {
