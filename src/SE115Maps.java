@@ -74,10 +74,10 @@ public class SE115Maps {
             String[][] routes = new String[numberOfRoutes][3];
             int actualRoutes = 0;
 
-            for (; actualRoutes < numberOfRoutes; actualRoutes++) {
+            for (int i = 0; i < numberOfRoutes; i++) {
                 try {
                     if (!reader.hasNextLine()) {
-                        errors[errorCount++] = "Error Line: " + lineNumber + " Insufficient routes: Expected " + numberOfRoutes + ", Found " + actualRoutes;
+                        errors[errorCount++] = "Error Line: " + lineNumber + " Insufficient routes: Expected " + numberOfRoutes + ", Found " + i;
                         break;
                     }
                     String[] routeParts = reader.nextLine().trim().split(" ");
@@ -88,7 +88,19 @@ public class SE115Maps {
                         if (time <= 0) {
                             errors[errorCount++] = "Error Line: " + lineNumber + " Invalid route time (must be positive)";
                         }
-                        routes[actualRoutes] = routeParts;
+
+                        boolean city1Exists = false;
+                        boolean city2Exists = false;
+                        for (String city : cityLabels) {
+                            if (city.equals(routeParts[0])) city1Exists = true;
+                            if (city.equals(routeParts[1])) city2Exists = true;
+                        }
+
+                        if (!city1Exists || !city2Exists) {
+                            errors[errorCount++] = "Error Line: " + lineNumber + " City in route not found";
+                        } else {
+                            routes[actualRoutes++] = routeParts;
+                        }
                     }
                 } catch (Exception e) {
                     errors[errorCount++] = "Error Line: " + lineNumber + " Invalid route data";
@@ -151,7 +163,7 @@ public class SE115Maps {
                 // If there is no error continue with map creation and route calculation
                 System.out.println("File read is successful!");
 
-                CountryMap map = new CountryMap(numberOfCities, numberOfRoutes);
+                CountryMap map = new CountryMap(numberOfCities, actualRoutes);
                 for (int i = 0; i < cityLabels.length; i++) {
                     map.addCity(i, cityLabels[i]);
                 }
