@@ -7,7 +7,7 @@ public class SE115Maps {
     public static void main(String[] args) {
         // Checking if correct number of arguments are provided
         if (args.length != 2) {
-            System.out.println("Usage: java -jar 20240601054.jar <input_file_name> <output_file_name>");
+            System.out.println("Usage: java -jar SE115-Maps.jar <input_file_name> <output_file_name>");
             return;
         }
 
