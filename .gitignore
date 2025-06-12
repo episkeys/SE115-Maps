@@ -1,0 +1,5 @@
+# Ignore build artifacts
+build/
+.gradle/
+# Maven local repository files maybe
+**/*.class
